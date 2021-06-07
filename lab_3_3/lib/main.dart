@@ -121,6 +121,13 @@ List<List<int>> diophant({ax = 2, bx = 2, cx = 3, dx = 4, y = 45}) {
     }
     initVals = newInitVals.getRange(0, 5).toList();
     iterations++;
+
+    if(iterations > 100)
+      AlertDialog(
+          title : Text("Error"),
+          content: Text("Iterations > 100"),
+          actions: [
+          ]);
   }
 }
 
