@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+
 
 class Perceptron {
   int p;
@@ -162,24 +164,42 @@ class __PerceptionPageState extends State<PerceptionPage> {
               color: Colors.blue,
               child: Text('Calculate'),
           onPressed: ()  {
-              var learningRate = double.parse(learningRateTextController.text);
-              var maxTime = double.parse(maxTimeTextController.text);
-              var maxIterations = double.parse(iterationsTextController.text);
+              var rng = new Random();
 
-              var result = new Perceptron(4, learningRate).learn([
-                [0, 6],
-                [1, 5],
-                [3, 3],
-                [2, 4]
-              ], maxIterations, maxTime);
+              void randomValues(){
 
-              setState(() {
-                w1 = result[0];
-                w2 = result[1];
-                time = result[2];
-                iterations = result[3];
-              });
+
+                var learningRate = rng.nextInt(10).toDouble();
+                var maxTime = rng.nextInt(10).toDouble();
+                var maxIterations = rng.nextInt(10).toDouble();
+
+                var result = new Perceptron(4, learningRate).learn([
+                  [0, 6],
+                  [1, 5],
+                  [3, 3],
+                  [2, 4]
+                ], maxIterations, maxTime);
+
+
+              }
+              while(true) {
+                var timeStart = DateTime.now().millisecondsSinceEpoch;
+                var iterations = 0;
+                randomValues();
+                if(DateTime.now().millisecondsSinceEpoch - timeStart > 3000)
+                  return;
+
+                iterations++;
+              }
+              AlertDialog(
+                  title : Text("Iterations"),
+                  content: Text("$iterations"),
+                  actions: [
+                  ]);
+
+
             },
+
           ),
         ),
         SizedBox(
